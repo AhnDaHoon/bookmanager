@@ -15,8 +15,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Table(name = "UMEMBER")
 @Entity
-@Table(name = "TESTUSER")
 public class User {
 
     @Id
@@ -28,9 +28,7 @@ public class User {
 
     @NotNull
     private String email;
-
     private LocalDateTime createdAt;
-
     private LocalDateTime updatedAt;
 
 
