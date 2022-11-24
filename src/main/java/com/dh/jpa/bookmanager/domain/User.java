@@ -3,10 +3,7 @@ package com.dh.jpa.bookmanager.domain;
 import com.sun.istack.NotNull;
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Getter
@@ -15,7 +12,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name = "UMEMBER")
+@Table(name = "MEMBERS")
 @Entity
 public class User {
 
@@ -28,7 +25,9 @@ public class User {
 
     @NotNull
     private String email;
+
     private LocalDateTime createdAt;
+
     private LocalDateTime updatedAt;
 
 
