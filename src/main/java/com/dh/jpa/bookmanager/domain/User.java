@@ -11,10 +11,17 @@ import java.time.LocalDateTime;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
+@Data
 @Builder
 @Table(name = "MEMBERS")
 @Entity
 public class User {
+
+    public User(String name, String email){
+        this.name = name;
+        this.email = email;
+    }
+
 
     @Id
     @GeneratedValue
@@ -29,6 +36,7 @@ public class User {
     private LocalDateTime createdAt;
 
     private LocalDateTime updatedAt;
+
 
 
 }
