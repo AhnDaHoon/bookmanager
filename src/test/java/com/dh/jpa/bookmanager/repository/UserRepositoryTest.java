@@ -189,7 +189,7 @@ public class UserRepositoryTest {
     }
 
     @Test
-    void ListenerTest(){
+    void listenerTest(){
         User user = new User();
         user.setEmail("martin@aa.com");
         user.setName("martin");
@@ -232,7 +232,7 @@ public class UserRepositoryTest {
     }
 
     @Test
-    void UserHistoryTest(){
+    void userHistoryTest(){
         User user = new User();
         user.setEmail("asdsad@asd.com");
         user.setName("martin-new");
@@ -243,7 +243,19 @@ public class UserRepositoryTest {
 
         userRepository.save(user);
 
+        userRepository.deleteById(1L);
+
         userHistoryRepository.findAll().forEach(System.out::println);
+    }
+
+    @Test
+    void userTest(){
+        User user = new User();
+        user.setEmail("dh@naver.com");
+        user.setName("dh-new");
+
+        userRepository.save(user);
+        System.out.println(userRepository.findByName("dh-new"));
     }
 
 }
