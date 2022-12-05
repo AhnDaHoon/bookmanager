@@ -21,6 +21,9 @@ public class UserRepositoryTest {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private UserHistoryRepository userHistoryRepository;
+
     @Test
     void crud(){
         // 전체 조회 sort: name
@@ -185,6 +188,62 @@ public class UserRepositoryTest {
         System.out.println(userRepository.findRawRecord().get("gender"));
     }
 
+    @Test
+    void ListenerTest(){
+        User user = new User();
+        user.setEmail("martin@aa.com");
+        user.setName("martin");
 
+        userRepository.save(user);
+
+        User user2 = userRepository.findById(1L).orElseThrow(RuntimeException::new);
+        user2.setName("marrrrr");
+
+        userRepository.save(user2);
+
+        userRepository.deleteById(4L);
+
+    }
+
+    @Test
+    void prePersistTest(){
+        User user = new User();
+        user.setEmail("asd@naver.com");
+        user.setName("martin");
+//        user.setCreatedAt(LocalDateTime.now());
+//        user.setUpdatedAt(LocalDateTime.now());
+
+        userRepository.save(user);
+
+        System.out.println(userRepository.findByEmail("asd@naver.com"));
+    }
+
+    @Test
+    void preUpdateTest(){
+        User user = userRepository.findById(1L).orElseThrow(RuntimeException::new);
+
+        System.out.println("as-is : " + user);
+
+        user.setName("asdasd");
+        userRepository.save(user);
+
+        System.out.println("to-be : " + userRepository.findAll().get(0));
+
+    }
+
+    @Test
+    void UserHistoryTest(){
+        User user = new User();
+        user.setEmail("asdsad@asd.com");
+        user.setName("martin-new");
+
+        userRepository.save(user);
+
+        user.setName("asdsad");
+
+        userRepository.save(user);
+
+        userHistoryRepository.findAll().forEach(System.out::println);
+    }
 
 }
