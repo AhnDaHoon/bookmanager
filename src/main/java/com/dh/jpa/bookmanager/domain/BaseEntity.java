@@ -1,5 +1,6 @@
 package com.dh.jpa.bookmanager.domain;
 
+import com.dh.jpa.bookmanager.domain.listener.Auditable;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;

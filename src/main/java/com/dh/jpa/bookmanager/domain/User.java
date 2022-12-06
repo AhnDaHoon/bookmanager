@@ -22,7 +22,7 @@ import java.time.LocalDateTime;
 @Table(name = "MEMBERS")
 @Entity
 @EntityListeners(value =  {AuditingEntityListener.class, UserEntityListener.class})
-public class User extends BaseEntity implements Auditable {
+public class User extends BaseEntity {
 
     public User(String name, String email){
         this.name = name;
@@ -31,7 +31,7 @@ public class User extends BaseEntity implements Auditable {
 
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotNull
