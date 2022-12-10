@@ -10,6 +10,8 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -23,12 +25,6 @@ import java.time.LocalDateTime;
 @Entity
 @EntityListeners(value =  {AuditingEntityListener.class, UserEntityListener.class})
 public class User extends BaseEntity {
-
-    public User(String name, String email){
-        this.name = name;
-        this.email = email;
-    }
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,6 +41,27 @@ public class User extends BaseEntity {
     @Enumerated(value = EnumType.STRING)
     private Gender gender;
 
+    @Transient // 영속성 처리에서 제외되기 때문에 DB에 저장되지 않는다.
+               // DB에 저장하지 않고 객체에서 따로 쓰는 필드는 @Transient를 붙여서 사용한다.
+    private String testData;
+
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id", insertable = false, updatable = false)
+    @ToString.Exclude
+    private List<UserHistory> userHistories = new ArrayList<>();
+
+    @OneToMany()
+    @JoinColumn(name = "user_id")
+    @ToString.Exclude
+    private List<Review> reviews = new ArrayList<>();
+
+
+
+
+
+
+
+
 //    @Column(updatable = false) // 업데이트 시 해당 값 저장하지 않음
 //    @CreatedDate
 //    private LocalDateTime createdAt;
@@ -55,10 +72,6 @@ public class User extends BaseEntity {
 
 //    @OneToMany(fetch = FetchType.EAGER)
 //    private List<Address> address;
-
-    @Transient // 영속성 처리에서 제외되기 때문에 DB에 저장되지 않는다.
-               // DB에 저장하지 않고 객체에서 따로 쓰는 필드는 @Transient를 붙여서 사용한다.
-    private String testData;
 
 //    @PrePersist
 //    public void prePersist(){
